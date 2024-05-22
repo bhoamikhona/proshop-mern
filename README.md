@@ -2,12 +2,14 @@
 
 ## Tech Used:
 
-- `create-react-app`
+- React - `create-react-app`
 - `react-bootstrap`
 - `bootstrap`
 - `react-icons`
 - `react-router-dom`
-- `express`
+- Express - `express`
 - `nodemon`
 - `dotenv`
 - `axios`
+- MongoDB
+- `mongoose`

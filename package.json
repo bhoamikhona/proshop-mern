@@ -28,7 +28,8 @@
   },
   "homepage": "https://github.com/bhoamikhona/proshop-mern#readme",
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "mongoose": "^8.4.0"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
