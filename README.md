@@ -7,3 +7,5 @@
 - `bootstrap`
 - `react-icons`
 - `react-router-dom`
+- `express`
+- `nodemon`
