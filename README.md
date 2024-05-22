@@ -9,3 +9,5 @@
 - `react-router-dom`
 - `express`
 - `nodemon`
+- `dotenv`
+- `axios`
