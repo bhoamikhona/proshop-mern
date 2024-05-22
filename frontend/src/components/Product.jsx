@@ -1,6 +1,7 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Rating from "./Rating.jsx";
 
 function Product({ product }) {
   return (
@@ -10,10 +11,16 @@ function Product({ product }) {
       </Link>
       <Card.Body>
         <Link to={`/product/${product._id}`}>
-          <Card.Title as="div">
-            <strong>Card Title</strong>
+          <Card.Title as="div" className="product-title">
+            <strong>{product.name}</strong>
           </Card.Title>
         </Link>
+        <Card.Text as="div">
+          <Rating
+            value={product.rating}
+            text={`${product.numReviews} Reviews`}
+          />
+        </Card.Text>
         <Card.Text as="h3">${product.price}</Card.Text>
       </Card.Body>
     </Card>
