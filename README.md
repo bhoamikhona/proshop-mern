@@ -13,3 +13,5 @@
 - `axios`
 - MongoDB
 - `mongoose`
+- `bcryptjs`
+- `colors`
