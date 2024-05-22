@@ -1,6 +1,8 @@
 import express from "express";
 import products from "./data/products.js";
+import dotenv from "dotenv";
 
+dotenv.config();
 const app = express();
 
 app.get("/", (req, res) => res.send("Hello, World!"));
@@ -14,4 +16,5 @@ app.get("/api/products/:id", function (req, res) {
   return res.json(product);
 });
 
-app.listen(8000, () => console.log("App started listening on port 8000"));
+const port = process.env.PORT || 8000;
+app.listen(port, () => console.log(`App started listening on port ${port}`));
