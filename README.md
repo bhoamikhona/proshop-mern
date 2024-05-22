@@ -15,3 +15,4 @@
 - `mongoose`
 - `bcryptjs`
 - `colors`
+- Redux and Redux Toolkit
