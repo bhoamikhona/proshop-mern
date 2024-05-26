@@ -16,3 +16,4 @@
 - `bcryptjs`
 - `colors`
 - Redux and Redux Toolkit
+- JSON Web Token
