@@ -9,7 +9,7 @@ const initialState = {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducer: {
+  reducers: {
     setCredentials: function (state, action) {
       state.userInfo = action.payload;
       localStorage.setItem("userInfo", JSON.stringify(action.payload));
@@ -18,5 +18,4 @@ const authSlice = createSlice({
 });
 
 export const { setCredentials } = authSlice.actions;
-
 export default authSlice.reducer;

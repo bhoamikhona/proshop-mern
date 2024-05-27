@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, Container, Badge } from "react-bootstrap";
+import { Navbar, Nav, Container, Badge, NavDropdown } from "react-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
@@ -7,7 +7,12 @@ import { useSelector } from "react-redux";
 
 function Header() {
   const { cartItems } = useSelector((state) => state.cart);
-  console.log(cartItems);
+  const { userInfo } = useSelector((state) => state.auth);
+
+  const logoutHandler = function () {
+    console.log("logout");
+  };
+
   return (
     <header>
       <Navbar bg="dark" variant="dark" expand="md" collapseOnSelect>
@@ -30,13 +35,25 @@ function Header() {
                   </Badge>
                 )}
               </Nav.Link>
-              <Nav.Link
-                as={Link}
-                to="/login"
-                className="d-flex align-items-center"
-              >
-                <FaUser /> &nbsp; Login
-              </Nav.Link>
+
+              {userInfo ? (
+                <NavDropdown title={userInfo.name} id="username">
+                  <NavDropdown.Item as={Link} to="/profile">
+                    Profile
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <Nav.Link
+                  as={Link}
+                  to="/login"
+                  className="d-flex align-items-center"
+                >
+                  <FaUser /> &nbsp; Login
+                </Nav.Link>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
