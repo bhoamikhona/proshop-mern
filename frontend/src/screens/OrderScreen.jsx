@@ -57,11 +57,11 @@ function OrderScreen() {
     }
   }, [order, paypal, paypalDispatch, loadingPayPal, errorPayPal]);
 
-  const onApproveTest = async function () {
-    await payOrder({ orderId, details: { payer: {} } });
-    refetch();
-    toast.success("Payment successful");
-  };
+  // const onApproveTest = async function () {
+  //   await payOrder({ orderId, details: { payer: {} } });
+  //   refetch();
+  //   toast.success("Payment successful");
+  // };
 
   const createOrder = function (data, actions) {
     return actions.order
