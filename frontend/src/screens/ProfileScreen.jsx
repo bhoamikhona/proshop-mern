@@ -116,7 +116,7 @@ function ProfileScreen() {
             {error?.data?.message || error.error}
           </Message>
         ) : (
-          <Table bordered responsive className="table-sm">
+          <Table hover bordered responsive className="table-sm">
             <thead>
               <tr>
                 <th>ID</th>
