@@ -66,7 +66,7 @@ function UserListScreen() {
                 <td>
                   <div className="d-flex align-items-center justify-content-start mx-2">
                     <Link
-                      to={`/admin/user/${user.id}/edit`}
+                      to={`/admin/user/${user._id}/edit`}
                       style={{ marginRight: "10px" }}
                     >
                       <Button
