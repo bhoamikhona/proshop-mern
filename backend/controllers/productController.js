@@ -101,16 +101,17 @@ const deleteProduct = asyncHandler(async function (req, res) {
  */
 const createProductReview = asyncHandler(async function (req, res) {
   const { rating, comment } = req.body;
+
   const product = await Product.findById(req.params.id);
 
   if (product) {
-    const alreadyReviewed = product.review.find(
-      (r) => r.user.toString() === r.user._id.toString()
+    const alreadyReviewed = product.reviews.find(
+      (r) => r.user.toString() === req.user._id.toString()
     );
 
     if (alreadyReviewed) {
       res.status(400);
-      throw new Error("Product already reviewd");
+      throw new Error("Product already reviewed");
     }
 
     const review = {
@@ -120,7 +121,7 @@ const createProductReview = asyncHandler(async function (req, res) {
       user: req.user._id,
     };
 
-    product.review.push(review);
+    product.reviews.push(review);
 
     product.numReviews = product.reviews.length;
 
@@ -129,7 +130,6 @@ const createProductReview = asyncHandler(async function (req, res) {
       product.reviews.length;
 
     await product.save();
-
     res.status(201).json({ message: "Review added" });
   } else {
     res.status(404);
