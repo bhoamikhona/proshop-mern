@@ -84,19 +84,24 @@ function ProductListScreen() {
                 <td>{product.category}</td>
                 <td>{product.brand}</td>
                 <td>
-                  <Link to={`/admin/product/${product._id}/edit`}>
-                    <Button variant="light" className="btn-sm mx-2">
-                      <FaEdit style={{ color: "teal" }} />
-                    </Button>
-                  </Link>
+                  <div className="d-flex align-items-center justify-content-center">
+                    <Link to={`/admin/product/${product._id}/edit`}>
+                      <Button
+                        variant="primary"
+                        className="btn-sm mx-2 d-flex align-items-center justify-content-center"
+                      >
+                        <FaEdit style={{ color: "white" }} />
+                      </Button>
+                    </Link>
 
-                  <Button
-                    variant="light"
-                    className="btn-sm m-2"
-                    onClick={() => deleteHandler(product._id)}
-                  >
-                    <FaTrash style={{ color: "tomato" }} />
-                  </Button>
+                    <Button
+                      variant="danger"
+                      className="btn-sm m-2 d-flex align-items-center justify-content-center"
+                      onClick={() => deleteHandler(product._id)}
+                    >
+                      <FaTrash style={{ color: "white" }} />
+                    </Button>
+                  </div>
                 </td>
               </tr>
             ))}

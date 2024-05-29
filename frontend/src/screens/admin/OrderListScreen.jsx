@@ -42,19 +42,19 @@ function OrderListScreen() {
                   {order.isPaid ? (
                     order.paidAt.substring(0, 10)
                   ) : (
-                    <FaTimes style={{ color: "red" }} />
+                    <FaTimes style={{ color: "tomato" }} />
                   )}
                 </td>
                 <td>
                   {order.isDelivered ? (
                     order.deliveredAt.substring(0, 10)
                   ) : (
-                    <FaTimes style={{ color: "red" }} />
+                    <FaTimes style={{ color: "tomato" }} />
                   )}
                 </td>
                 <td>
                   <Link to={`/order/${order._id}`}>
-                    <Button variant="light" className="btn-sm">
+                    <Button variant="primary" className="btn-sm">
                       Details
                     </Button>
                   </Link>
