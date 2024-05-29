@@ -94,10 +94,54 @@ const deleteProduct = asyncHandler(async function (req, res) {
   }
 });
 
+/**
+ * @desc    Create a new review
+ * @route   PUT /api/products/:id/reviews
+ * @access  Private
+ */
+const createProductReview = asyncHandler(async function (req, res) {
+  const { rating, comment } = req.body;
+  const product = await Product.findById(req.params.id);
+
+  if (product) {
+    const alreadyReviewed = product.review.find(
+      (r) => r.user.toString() === r.user._id.toString()
+    );
+
+    if (alreadyReviewed) {
+      res.status(400);
+      throw new Error("Product already reviewd");
+    }
+
+    const review = {
+      name: req.user.name,
+      rating: Number(rating),
+      comment,
+      user: req.user._id,
+    };
+
+    product.review.push(review);
+
+    product.numReviews = product.reviews.length;
+
+    product.rating =
+      product.reviews.reduce((acc, item) => item.rating + acc, 0) /
+      product.reviews.length;
+
+    await product.save();
+
+    res.status(201).json({ message: "Review added" });
+  } else {
+    res.status(404);
+    throw new Error("Product not found");
+  }
+});
+
 export {
   getProducts,
   getProductById,
   createProduct,
   updateProduct,
   deleteProduct,
+  createProductReview,
 };
