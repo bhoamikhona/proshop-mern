@@ -17,3 +17,5 @@
 - `colors`
 - Redux and Redux Toolkit
 - JSON Web Token
+- Paypal API for payment
+- `@paypal/react-paypal-js`
