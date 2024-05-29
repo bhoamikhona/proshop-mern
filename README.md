@@ -19,3 +19,4 @@
 - JSON Web Token
 - Paypal API for payment
 - `@paypal/react-paypal-js`
+- `multer` for uploading images
