@@ -4,12 +4,29 @@ import { Table, Button, Row, Col } from "react-bootstrap";
 import { FaTimes, FaEdit, FaTrash } from "react-icons/fa";
 import Message from "../../components/Message.jsx";
 import Loader from "../../components/Loader.jsx";
-import { useGetProductsQuery } from "../../slices/productsApiSlice.js";
+import {
+  useGetProductsQuery,
+  useCreateProductMutation,
+} from "../../slices/productsApiSlice.js";
+import { toast } from "react-toastify";
 
 function ProductListScreen() {
-  const { data: products, isLoading, error } = useGetProductsQuery();
+  const { data: products, isLoading, error, refetch } = useGetProductsQuery();
+  const [createProduct, { isLoading: loadingCreate }] =
+    useCreateProductMutation();
 
-  const deleteHandler = function () {};
+  const deleteHandler = function (id) {};
+
+  const createProductHandler = async function () {
+    if (window.confirm("Are you sure you want to create a new product?")) {
+      try {
+        await createProduct();
+        refetch();
+      } catch (error) {
+        toast.error(error?.data?.message || error?.error);
+      }
+    }
+  };
 
   return (
     <>
@@ -18,12 +35,16 @@ function ProductListScreen() {
           <h1>Products</h1>
         </Col>
         <Col className="d-flex justify-content-end">
-          <Button className="btn-sm m-3 d-flex align-items-center justify-content-center">
+          <Button
+            className="btn-sm m-3 d-flex align-items-center justify-content-center"
+            onClick={createProductHandler}
+          >
             <FaEdit /> &nbsp; Create Product
           </Button>
         </Col>
       </Row>
 
+      {loadingCreate && <Loader />}
       {isLoading ? (
         <Loader />
       ) : error ? (
@@ -55,8 +76,8 @@ function ProductListScreen() {
 
                   <Button
                     variant="light"
-                    className="btn-sm mx-2"
-                    onClick={(e) => deleteHandler(product._id)}
+                    className="btn-sm m-2"
+                    onClick={() => deleteHandler(product._id)}
                   >
                     <FaTrash style={{ color: "tomato" }} />
                   </Button>
