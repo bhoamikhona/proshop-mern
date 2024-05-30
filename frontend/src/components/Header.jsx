@@ -7,6 +7,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../slices/usersApiSlice.js";
 import { logout } from "../slices/authSlice.js";
 import { useNavigate } from "react-router-dom";
+import SearchBox from "./SearchBox.jsx";
+import { LinkContainer } from "react-router-bootstrap";
 
 function Header() {
   const { cartItems } = useSelector((state) => state.cart);
@@ -37,18 +39,23 @@ function Header() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-              <Nav.Link
-                as={Link}
-                to="/cart"
-                className="d-flex align-items-center"
-              >
-                <FaShoppingCart /> &nbsp; Cart
-                {cartItems.length > 0 && (
-                  <Badge pill bg="success" style={{ marginLeft: "5px" }}>
-                    {cartItems.reduce((a, c) => a + c.qty, 0)}
-                  </Badge>
-                )}
-              </Nav.Link>
+              <Nav.Item>
+                <SearchBox />
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
+                  as={Link}
+                  to="/cart"
+                  className="d-flex align-items-center"
+                >
+                  <FaShoppingCart /> &nbsp; Cart
+                  {cartItems.length > 0 && (
+                    <Badge pill bg="success" style={{ marginLeft: "5px" }}>
+                      {cartItems.reduce((a, c) => a + c.qty, 0)}
+                    </Badge>
+                  )}
+                </Nav.Link>
+              </Nav.Item>
 
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id="username">
@@ -60,13 +67,11 @@ function Header() {
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : (
-                <Nav.Link
-                  as={Link}
-                  to="/login"
-                  className="d-flex align-items-center"
-                >
-                  <FaUser /> &nbsp; Login
-                </Nav.Link>
+                <LinkContainer to="/login">
+                  <Nav.Link>
+                    <FaUser /> Login
+                  </Nav.Link>
+                </LinkContainer>
               )}
               {userInfo && userInfo.isAdmin && (
                 <NavDropdown title="Admin" id="adminmenu">

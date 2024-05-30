@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { Table, Button, Row, Col } from "react-bootstrap";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
 import Message from "../../components/Message.jsx";
 import Loader from "../../components/Loader.jsx";
 import {
@@ -58,7 +58,7 @@ function ProductListScreen() {
             className="btn-sm m-3 d-flex align-items-center justify-content-center"
             onClick={createProductHandler}
           >
-            <FaEdit /> &nbsp; Create Product
+            <FaPlus /> &nbsp; Create Product
           </Button>
         </Col>
       </Row>
@@ -68,51 +68,53 @@ function ProductListScreen() {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <Message variant="danger">{error.data.message}</Message>
       ) : (
-        <Table hover responsive bordered className="table-sm">
-          <thead>
-            <th>ID</th>
-            <th>NAME</th>
-            <th>PRICE</th>
-            <th>CATEGORY</th>
-            <th>BRAND</th>
-            <th>ACTIONS</th>
-          </thead>
-          <tbody>
-            {data.products.map((product) => (
-              <tr key={product._id}>
-                <td>{product._id}</td>
-                <td>{product.name}</td>
-                <td>{product.price}</td>
-                <td>{product.category}</td>
-                <td>{product.brand}</td>
-                <td>
-                  <div className="d-flex align-items-center justify-content-center">
-                    <Link to={`/admin/product/${product._id}/edit`}>
-                      <Button
-                        variant="primary"
-                        className="btn-sm mx-2 d-flex align-items-center justify-content-center"
-                      >
-                        <FaEdit style={{ color: "white" }} />
-                      </Button>
-                    </Link>
+        <>
+          <Table hover responsive bordered className="table-sm">
+            <thead>
+              <th>ID</th>
+              <th>NAME</th>
+              <th>PRICE</th>
+              <th>CATEGORY</th>
+              <th>BRAND</th>
+              <th>ACTIONS</th>
+            </thead>
+            <tbody>
+              {data.products.map((product) => (
+                <tr key={product._id}>
+                  <td>{product._id}</td>
+                  <td>{product.name}</td>
+                  <td>{product.price}</td>
+                  <td>{product.category}</td>
+                  <td>{product.brand}</td>
+                  <td>
+                    <div className="d-flex align-items-center justify-content-center">
+                      <Link to={`/admin/product/${product._id}/edit`}>
+                        <Button
+                          variant="primary"
+                          className="btn-sm mx-2 d-flex align-items-center justify-content-center"
+                        >
+                          <FaEdit style={{ color: "white" }} />
+                        </Button>
+                      </Link>
 
-                    <Button
-                      variant="danger"
-                      className="btn-sm m-2 d-flex align-items-center justify-content-center"
-                      onClick={() => deleteHandler(product._id)}
-                    >
-                      <FaTrash style={{ color: "white" }} />
-                    </Button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+                      <Button
+                        variant="danger"
+                        className="btn-sm m-2 d-flex align-items-center justify-content-center"
+                        onClick={() => deleteHandler(product._id)}
+                      >
+                        <FaTrash style={{ color: "white" }} />
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          <Paginate pages={data.pages} page={data.page} isAdmin={true} />
+        </>
       )}
-      <Paginate pages={data.pages} page={data.page} isAdmin={true} />
     </>
   );
 }
