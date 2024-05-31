@@ -2,6 +2,7 @@ import React from "react";
 import { Navbar, Nav, Container, Badge, NavDropdown } from "react-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import logo from "../assets/logo.png";
+import proshoplogo from "../assets/proshop-logo.png";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../slices/usersApiSlice.js";
@@ -36,7 +37,7 @@ function Header() {
       <Navbar bg="dark" variant="dark" expand="md" collapseOnSelect>
         <Container>
           <Navbar.Brand as={Link} to="/">
-            <img src={logo} alt="Proshop" />
+            <img src={proshoplogo} alt="Proshop" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -59,6 +60,20 @@ function Header() {
                 </Nav.Link>
               </Nav.Item>
 
+              {userInfo && userInfo.isAdmin && (
+                <NavDropdown title="Admin" id="adminmenu">
+                  <NavDropdown.Item as={Link} to="/admin/productlist">
+                    Products
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/admin/userlist">
+                    Users
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/admin/orderlist">
+                    Orders
+                  </NavDropdown.Item>
+                </NavDropdown>
+              )}
+
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id="username">
                   <NavDropdown.Item as={Link} to="/profile">
@@ -74,19 +89,6 @@ function Header() {
                     <FaUser /> Login
                   </Nav.Link>
                 </LinkContainer>
-              )}
-              {userInfo && userInfo.isAdmin && (
-                <NavDropdown title="Admin" id="adminmenu">
-                  <NavDropdown.Item as={Link} to="/admin/productlist">
-                    Products
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/admin/userlist">
-                    Users
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/admin/orderlist">
-                    Orders
-                  </NavDropdown.Item>
-                </NavDropdown>
               )}
             </Nav>
           </Navbar.Collapse>

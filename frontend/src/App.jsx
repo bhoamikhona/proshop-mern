@@ -8,8 +8,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <>
+    <div className="app">
       <Header />
+
       <main className="py-3">
         <Container>
           <Outlet />
@@ -17,7 +18,7 @@ function App() {
       </main>
       <Footer />
       <ToastContainer />
-    </>
+    </div>
   );
 }
 

@@ -12,13 +12,15 @@ function ProductCarousel() {
   ) : (
     <Carousel pause="hover" className="bg-primary mb-4">
       {products.map((product) => (
-        <Carousel.Item key={product._id}>
+        <Carousel.Item key={product._id} className="carousel-item">
           <Link to={`/product/${product._id}`}>
-            <Image src={product.image} alt={product.name} fluid />
+            <Image
+              src={product.banner || product.image}
+              alt={product.name}
+              fluid
+            />
             <Carousel.Caption className="carousel-caption">
-              <h2 className="text-white text-right">
-                {product.name} (${product.price})
-              </h2>
+              <h2 className="text-white text-right">{product.name}</h2>
             </Carousel.Caption>
           </Link>
         </Carousel.Item>

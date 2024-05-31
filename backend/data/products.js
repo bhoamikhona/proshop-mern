@@ -2,6 +2,7 @@ const products = [
   {
     name: "Airpods Wireless Bluetooth Headphones",
     image: "/images/airpods.jpg",
+    banner: "/images/airpods-banner.jpg",
     description:
       "Bluetooth technology lets you connect it with compatible devices wirelessly High-quality AAC audio offers immersive listening experience Built-in microphone allows you to take calls while working",
     brand: "Apple",
@@ -14,6 +15,7 @@ const products = [
   {
     name: "iPhone 11 Pro 256GB Memory",
     image: "/images/phone.jpg",
+    banner: "/images/phone-banner.jpg",
     description:
       "Introducing the iPhone 11 Pro. A transformative triple-camera system that adds tons of capability without complexity. An unprecedented leap in battery life",
     brand: "Apple",
@@ -38,6 +40,7 @@ const products = [
   {
     name: "Sony Playstation 4 Pro White Version",
     image: "/images/playstation.jpg",
+    banner: "/images/playstation-banner.jpg",
     description:
       "The ultimate home entertainment center starts with PlayStation. Whether you are into gaming, HD movies, television, music",
     brand: "Sony",

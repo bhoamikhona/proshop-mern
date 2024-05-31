@@ -1,18 +1,17 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Navbar } from "react-bootstrap";
 
 function Footer() {
   const currentYear = new Date().getFullYear();
   return (
-    <footer>
-      <Container>
-        <Row>
-          <Col className="text-center py-3">
-            <p>Proshop &copy; {currentYear}</p>
-          </Col>
-        </Row>
-      </Container>
-    </footer>
+    <Navbar
+      as="footer"
+      role="footer"
+      bg="dark"
+      className="d-flex align-items-center justify-content-center"
+    >
+      <p className="text-light">Proshop &copy; {currentYear}</p>
+    </Navbar>
   );
 }
 

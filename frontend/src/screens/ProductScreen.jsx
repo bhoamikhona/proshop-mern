@@ -20,6 +20,7 @@ import { addToCart } from "../slices/cartSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Meta from "../components/Meta.jsx";
+import { FaCartPlus } from "react-icons/fa";
 
 function ProductScreen() {
   const { id: productId } = useParams();
@@ -77,10 +78,10 @@ function ProductScreen() {
         <>
           <Meta title={product.name} />
           <Row>
-            <Col md={5}>
+            <Col md={6}>
               <Image src={product.image} alt={product.name} fluid />
             </Col>
-            <Col md={4}>
+            <Col md={6}>
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <h3>{product.name}</h3>
@@ -92,69 +93,61 @@ function ProductScreen() {
                   />
                 </ListGroup.Item>
                 <ListGroup.Item>{product.description}</ListGroup.Item>
-              </ListGroup>
-            </Col>
-            <Col md={3}>
-              <Card>
-                <ListGroup variant="flush">
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Price:</Col>
+                    <Col>
+                      <strong>${product.price}</strong>
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Status:</Col>
+                    <Col>
+                      <strong>
+                        {product.countInStock > 0 ? "In Stock" : "Out of Stock"}
+                      </strong>
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+                {product.countInStock > 0 && (
                   <ListGroup.Item>
                     <Row>
-                      <Col>Price:</Col>
+                      <Col>Qty:</Col>
                       <Col>
-                        <strong>${product.price}</strong>
+                        <Form.Control
+                          as="select"
+                          value={qty}
+                          onChange={(e) => setQty(Number(e.target.value))}
+                        >
+                          {[...Array(product.countInStock).keys()].map((x) => (
+                            <option key={x + 1} value={x + 1}>
+                              {x + 1}
+                            </option>
+                          ))}
+                        </Form.Control>
                       </Col>
                     </Row>
                   </ListGroup.Item>
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Status:</Col>
-                      <Col>
-                        <strong>
-                          {product.countInStock > 0
-                            ? "In Stock"
-                            : "Out of Stock"}
-                        </strong>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-                  {product.countInStock > 0 && (
-                    <ListGroup.Item>
-                      <Row>
-                        <Col>Qty:</Col>
-                        <Col>
-                          <Form.Control
-                            as="select"
-                            value={qty}
-                            onChange={(e) => setQty(Number(e.target.value))}
-                          >
-                            {[...Array(product.countInStock).keys()].map(
-                              (x) => (
-                                <option key={x + 1} value={x + 1}>
-                                  {x + 1}
-                                </option>
-                              )
-                            )}
-                          </Form.Control>
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
-                  )}
-                  <ListGroup.Item>
+                )}
+                <ListGroup.Item>
+                  <div className="d-grid">
                     <Button
-                      className="btn-black"
+                      className="btn-black d-flex align-items-center justify-content-center"
                       type="button"
                       disabled={product.countInStock === 0}
                       onClick={addToCartHandler}
                     >
-                      Add to Cart
+                      <FaCartPlus /> &nbsp; Add to Cart
                     </Button>
-                  </ListGroup.Item>
-                </ListGroup>
-              </Card>
+                  </div>
+                </ListGroup.Item>
+              </ListGroup>
             </Col>
           </Row>
           <Row className="review">
-            <Col md={5}>
+            <Col>
               <h2>Reviews</h2>
               {product.reviews.length === 0 && (
                 <Message variant="info">No Reviews</Message>
@@ -168,7 +161,7 @@ function ProductScreen() {
                     <p>{review.comment}</p>
                   </ListGroup.Item>
                 ))}
-                <ListGroup.Item>
+                <ListGroup.Item style={{ padding: 0 }}>
                   <h2>Write a Customer Review</h2>
                   {loadingProductReview && <Loader />}
                   {userInfo ? (
